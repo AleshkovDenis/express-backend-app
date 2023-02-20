@@ -13,6 +13,16 @@ router.get(
   })
 );
 
+router.get("/github", passport.authenticate("github", { scope: "profile" }));
+
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    successRedirect: "http://localhost:3000/",
+    failureRedirect: "http://localhost:3000/login/failed",
+  })
+);
+
 router.post("/logout", (req, res) => {
   req.logout();
   res.redirect("http://localhost:3000/");
