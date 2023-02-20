@@ -23,6 +23,16 @@ router.get(
   })
 );
 
+router.get("/facebook", passport.authenticate("facebook", { scope: "profile" }));
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "http://localhost:3000/",
+    failureRedirect: "http://localhost:3000/login/failed",
+  })
+);
+
 router.post("/logout", (req, res) => {
   req.logout();
   res.redirect("http://localhost:3000/");
